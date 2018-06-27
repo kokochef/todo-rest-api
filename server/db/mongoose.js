@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+const {mongoDBURI} = require('./../config/config');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoAPI');
+mongoose.connect(mongoDBURI);
 
 module.exports = {mongoose};
