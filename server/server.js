@@ -9,7 +9,7 @@ var app = express();
 
 //Setup Middlewares
 app.use(bodyParser.json());
-app.use('', router);
+app.use('/api', router);
 
 //Start app to listen on Port 3000
 app.listen(3000, () => {
