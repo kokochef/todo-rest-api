@@ -11,11 +11,11 @@ const todos = [{
 }];
 
 describe('POST /todos', () => {
-  
+
   beforeEach((done) => {
     Todo.remove({}).then(() => done());
   });
-
+  
   it('should create a new todo', (done) => {
     var text = 'Test todo text';
 
@@ -73,6 +73,5 @@ describe('GET /todos', () => {
        expect(res.body.todos.length).toBe(2);
      })
      .end(done);
-  })
-
+  });
 });

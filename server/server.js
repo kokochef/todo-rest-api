@@ -2,12 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var {mongoose} = require('./db/mongoose');
-var {Todo} = require('./models/todo');
-var {User} = require('./models/user');
 var {router} = require('./routes/router');
 
 //Express app Object
 var app = express();
+
 //Setup Middlewares
 app.use(bodyParser.json());
 app.use('', router);
