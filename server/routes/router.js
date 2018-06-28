@@ -26,4 +26,9 @@ router.delete('/todos/:id', (req, res) => {
     todoController.deleteId(req, res);
 });
 
+router.patch('/todos/:id', (req, res) => {
+    //Call associated todoController function
+    todoController.patchId(req, res);
+});
+
 module.exports = {router};
