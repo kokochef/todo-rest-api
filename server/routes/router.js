@@ -12,12 +12,18 @@ router.get('/todos', (req, res) => {
 });
 
 router.get('/todos/:id', (req, res) => {
+    //Call Associated todoController function
     todoController.getId(req, res);
 });
 
 router.post('/todos', (req, res) => {
     //Call Associated todoController function
     todoController.post(req, res);
+});
+
+router.delete('/todos/:id', (req, res) => {
+    //Call associated todoController function
+    todoController.deleteId(req, res);
 });
 
 module.exports = {router};

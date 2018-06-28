@@ -14,6 +14,7 @@ todoController.get = (req, res) => {
     });
 };
 
+//Function to handle GET /todos/:id
 todoController.getId = (req, res) => {
     var id = req.params.id;
     
@@ -28,7 +29,7 @@ todoController.getId = (req, res) => {
             return res.status(404).send();
         }
 
-        return res.send({todo});
+        res.send({todo});
     }).catch((e) => res.status(400).send());
 };
 
@@ -43,6 +44,23 @@ todoController.post = (req, res) => {
     }, (err) => {
         res.status(400).send(err);
     });
+};
+
+//Function to handle DELETE /todos/:id
+todoController.deleteId = (req, res) => {
+    var id = req.params.id;
+    
+    if (!ObjectId.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+
+        res.send({todo});
+    }).catch((err) => res.status(404).send());
 };
 
 module.exports = {todoController};
