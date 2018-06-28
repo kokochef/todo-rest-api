@@ -64,6 +64,7 @@ todoController.deleteId = (req, res) => {
     }).catch((err) => res.status(404).send());
 };
 
+//Function to handle PATCH /todos/:id
 todoController.patchId = (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['text', 'completed']);
