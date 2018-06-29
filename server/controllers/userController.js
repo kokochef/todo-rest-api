@@ -20,4 +20,8 @@ userController.post = (req, res) => {
     });
 }
 
+userController.authenticate = (req, res) => {
+    res.send(req.user);
+}
+
 module.exports = {userController};
