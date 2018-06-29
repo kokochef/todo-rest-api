@@ -24,4 +24,4 @@ userController.authenticate = (req, res) => {
     res.send(req.user);
 }
 
-module.exports = {userController};
+module.exports = {userController}; 
