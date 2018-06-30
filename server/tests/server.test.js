@@ -210,6 +210,12 @@ describe('GET /users/me', () => {
 
 describe('POST /users', () => {
 
+  beforeEach((done) => {
+    User.remove({}).then(() => {
+      done();
+    });
+  });
+
   it('should create a user', (done) => {
     var email = 'example@example.com';
     var password = '123app';
@@ -232,7 +238,7 @@ describe('POST /users', () => {
           expect(user).toBeDefined();
           expect(user.password).not.toBe(password);
           done();
-        });
+        }).catch((err) => done(err));
       });
   });
 
@@ -256,5 +262,59 @@ describe('POST /users', () => {
       })
       .expect(400)
       .end(done);
+  });
+});
+
+describe('POST /users/login', () => {
+
+  beforeEach(populateUsers);
+
+  it('should login user and return auth token', (done) => {
+    request(app)
+      .post('/api/users/login')
+      .send({
+        email: users[1].email,
+        password: users[1].password
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.headers['x-auth']).toBeDefined();
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+
+        User.findById(users[1]._id).then((user) => {
+          expect(user.tokens[0]).toInclude({
+            access: 'auth',
+            token: res.headers['x-auth']
+          });
+          done();
+        }).catch((err) => done(err));
+      });
+  });
+
+  it('should reject invalid credentials', (done) => {
+    request(app)
+      .post('/api/users/login')
+      .send({
+        email: users[1].email,
+        password: users[1].password + '1'
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.headers['x-auth']).toBeUndefined();
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+
+        User.findById(users[1]._id).then((user) => {
+          expect(user.tokens.length).toBe(0);
+          done();
+        }).catch((err) => done(err));
+      });
   });
 });
