@@ -21,4 +21,10 @@ usersRouter.get('/users/me',auth, (req, res) => {
 usersRouter.post('/users/login', (req, res) => {
     userController.login(req, res);
 });
+
+//DELETE /users/me/token
+usersRouter.delete('/users/me/token', auth, (req, res) => {
+    userController.logout(req, res);
+});
+
 module.exports= {usersRouter};

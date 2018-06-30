@@ -18,11 +18,11 @@ userController.post = (req, res) => {
     }).catch((err) => {
         res.status(400).send(err);
     });
-}
+};
 
 userController.authenticate = (req, res) => {
     res.send(req.user);
-}
+};
 
 userController.login = (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
@@ -35,4 +35,13 @@ userController.login = (req, res) => {
         res.status(404).send();
     });
 };
+
+userController.logout = (req, res) => {
+    req.user.removeToken(req.token).then(() => {
+        res.status(200).send();
+    }, () => {
+        res.status(400).send();
+    });
+};
+
 module.exports = {userController}; 
