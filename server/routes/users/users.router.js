@@ -17,4 +17,8 @@ usersRouter.get('/users/me',auth, (req, res) => {
     userController.authenticate(req, res);
 });
 
+//POST /users/login 
+usersRouter.post('/users/login', (req, res) => {
+    userController.login(req, res);
+});
 module.exports= {usersRouter};
